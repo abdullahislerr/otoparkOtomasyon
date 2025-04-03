@@ -1,50 +1,37 @@
 // src/AdminEmployees.js
 import React, { useEffect, useState } from 'react';
-import styles from'./AdminEmployees.css';
+import './AdminEmployees.css';
 
 function AdminEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
-  // Yeni çalışan form state'i
+
   const [newEmployee, setNewEmployee] = useState({
-    calisan_ad: '',
-    calisan_soyad: '',
-    calisan_telNO: '',
-    calisan_adres: '',
-    calisan_mail: '',
-    calisan_sifre: '',
-    calisan_rol: 'personel',
+    calisan_ad: '', calisan_soyad: '', calisan_telNO: '',
+    calisan_adres: '', calisan_mail: '', calisan_sifre: '',
+    calisan_rol: 'personel'
   });
-  
-  // Güncelleme için seçili çalışan
+
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  // Modal kontrolü
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
-  // Silme işleminde silinecek id'yi tutalım
   const [deleteEmployeeId, setDeleteEmployeeId] = useState(null);
-  
-  // API'den çalışanları çek
+
+  useEffect(() => { fetchEmployees(); }, []);
+
   const fetchEmployees = async () => {
     try {
       const res = await fetch('/api/calisanlar');
       const data = await res.json();
       setEmployees(data);
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError('Çalışanlar çekilirken bir hata oluştu.');
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchEmployees();
-  }, []);
-  
-  // Yeni çalışan ekleme
   const handleAddEmployee = async (e) => {
     e.preventDefault();
     try {
@@ -58,28 +45,18 @@ function AdminEmployees() {
         setError(errorData.error || 'Çalışan eklenemedi.');
         return;
       }
-      setNewEmployee({
-        calisan_ad: '',
-        calisan_soyad: '',
-        calisan_telNO: '',
-        calisan_adres: '',
-        calisan_mail: '',
-        calisan_sifre: '',
-        calisan_rol: 'personel',
-      });
+      setNewEmployee({ calisan_ad: '', calisan_soyad: '', calisan_telNO: '', calisan_adres: '', calisan_mail: '', calisan_sifre: '', calisan_rol: 'personel' });
       fetchEmployees();
-    } catch (err) {
+    } catch {
       setError('Çalışan eklenirken bir hata oluştu.');
     }
   };
-  
-  // Güncelleme açma
+
   const openUpdateModal = (employee) => {
     setSelectedEmployee(employee);
     setShowUpdateModal(true);
   };
-  
-  // Güncelleme işlemi
+
   const handleUpdateEmployee = async (e) => {
     e.preventDefault();
     try {
@@ -96,23 +73,19 @@ function AdminEmployees() {
       setShowUpdateModal(false);
       setSelectedEmployee(null);
       fetchEmployees();
-    } catch (err) {
+    } catch {
       setError('Güncelleme sırasında bir hata oluştu.');
     }
   };
-  
-  // Silme açma
+
   const openDeleteModal = (employeeId) => {
     setDeleteEmployeeId(employeeId);
     setShowDeleteModal(true);
   };
-  
-  // Silme işlemi
+
   const handleDeleteEmployee = async () => {
     try {
-      const res = await fetch(`/api/calisanlar/${deleteEmployeeId}`, {
-        method: 'DELETE'
-      });
+      const res = await fetch(`/api/calisanlar/${deleteEmployeeId}`, { method: 'DELETE' });
       if (!res.ok) {
         const errorData = await res.json();
         setError(errorData.error || 'Silme başarısız.');
@@ -121,99 +94,41 @@ function AdminEmployees() {
       setShowDeleteModal(false);
       setDeleteEmployeeId(null);
       fetchEmployees();
-    } catch (err) {
+    } catch {
       setError('Silme sırasında bir hata oluştu.');
     }
   };
 
   if (loading) return <div>Yükleniyor...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (error) return <div className="admin-employees-error">{error}</div>;
 
   return (
     <div className="admin-employees-container">
       <h2>Çalışanlar Yönetimi</h2>
-      
-      {/* Yeni çalışan ekleme formu */}
-      <form className="add-employee-form" onSubmit={handleAddEmployee}>
+
+      <form className="admin-employees-form" onSubmit={handleAddEmployee}>
         <h3>Yeni Çalışan Ekle</h3>
-        <div>
-          <label>Ad:</label>
+        {['ad', 'soyad', 'telNO', 'adres', 'mail', 'sifre'].map((field, i) => (
           <input
-            type="text"
-            value={newEmployee.calisan_ad}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_ad: e.target.value})}
+            key={i}
+            type={field === 'mail' ? 'email' : field === 'sifre' ? 'password' : 'text'}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            value={newEmployee[`calisan_${field}`]}
+            onChange={e => setNewEmployee({ ...newEmployee, [`calisan_${field}`]: e.target.value })}
             required
           />
-        </div>
-        <div>
-          <label>Soyad:</label>
-          <input
-            type="text"
-            value={newEmployee.calisan_soyad}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_soyad: e.target.value})}
-            required
-          />
-        </div>
-        <div>
-          <label>Telefon:</label>
-          <input
-            type="text"
-            value={newEmployee.calisan_telNO}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_telNO: e.target.value})}
-            required
-          />
-        </div>
-        <div>
-          <label>Adres:</label>
-          <input
-            type="text"
-            value={newEmployee.calisan_adres}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_adres: e.target.value})}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={newEmployee.calisan_mail}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_mail: e.target.value})}
-            required
-          />
-        </div>
-        <div>
-          <label>Şifre:</label>
-          <input
-            type="password"
-            value={newEmployee.calisan_sifre}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_sifre: e.target.value})}
-            required
-          />
-        </div>
-        <div>
-          <label>Rol:</label>
-          <select
-            value={newEmployee.calisan_rol}
-            onChange={(e) => setNewEmployee({...newEmployee, calisan_rol: e.target.value})}
-          >
-            <option value="personel">Personel</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+        ))}
+        <select value={newEmployee.calisan_rol} onChange={e => setNewEmployee({ ...newEmployee, calisan_rol: e.target.value })}>
+          <option value="personel">Personel</option>
+          <option value="admin">Admin</option>
+        </select>
         <button type="submit">Ekle</button>
       </form>
-      
-      {/* Çalışanlar Tablosu */}
-      <table className="employees-table">
+
+      <table className="admin-employees-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Email</th>
-            <th>Telefon</th>
-            <th>Rol</th>
-            <th>İşlemler</th>
+            <th>ID</th><th>Ad</th><th>Soyad</th><th>Email</th><th>Telefon</th><th>Rol</th><th>İşlemler</th>
           </tr>
         </thead>
         <tbody>
@@ -226,81 +141,54 @@ function AdminEmployees() {
               <td>{emp.calisan_telNO}</td>
               <td>{emp.calisan_rol}</td>
               <td>
-                <button onClick={() => openUpdateModal(emp)}>Güncelle</button>
-                <button onClick={() => openDeleteModal(emp.calisan_ID)}>Sil</button>
+                <button className="btn-update" onClick={() => openUpdateModal(emp)}>Güncelle</button>
+                <button className="btn-delete" onClick={() => openDeleteModal(emp.calisan_ID)}>Sil</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
-      {/* Güncelleme Modal'ı */}
+
       {showUpdateModal && selectedEmployee && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-employees-modal-overlay">
+          <div className="admin-employees-modal">
             <h3>Çalışan Güncelle</h3>
             <form onSubmit={handleUpdateEmployee}>
-              <div>
-                <label>Ad:</label>
+              {['ad', 'soyad', 'mail', 'telNO'].map((field, i) => (
                 <input
+                  key={i}
                   type="text"
-                  value={selectedEmployee.calisan_ad}
-                  onChange={(e) => setSelectedEmployee({...selectedEmployee, calisan_ad: e.target.value})}
+                  placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                  value={selectedEmployee[`calisan_${field}`]}
+                  onChange={e => setSelectedEmployee({ ...selectedEmployee, [`calisan_${field}`]: e.target.value })}
                   required
                 />
+              ))}
+              <select
+                value={selectedEmployee.calisan_rol}
+                onChange={e => setSelectedEmployee({ ...selectedEmployee, calisan_rol: e.target.value })}
+              >
+                <option value="personel">Personel</option>
+                <option value="admin">Admin</option>
+              </select>
+              <div className="modal-buttons">
+                <button className="btn-update" type="submit">Kaydet</button>
+                <button className="btn-cancel" type="button" onClick={() => setShowUpdateModal(false)}>İptal</button>
               </div>
-              <div>
-                <label>Soyad:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.calisan_soyad}
-                  onChange={(e) => setSelectedEmployee({...selectedEmployee, calisan_soyad: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input
-                  type="email"
-                  value={selectedEmployee.calisan_mail}
-                  onChange={(e) => setSelectedEmployee({...selectedEmployee, calisan_mail: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <label>Telefon:</label>
-                <input
-                  type="text"
-                  value={selectedEmployee.calisan_telNO}
-                  onChange={(e) => setSelectedEmployee({...selectedEmployee, calisan_telNO: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <label>Rol:</label>
-                <select
-                  value={selectedEmployee.calisan_rol}
-                  onChange={(e) => setSelectedEmployee({...selectedEmployee, calisan_rol: e.target.value})}
-                >
-                  <option value="personel">Personel</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-              <button type="submit">Güncelle</button>
-              <button type="button" onClick={() => { setShowUpdateModal(false); setSelectedEmployee(null); }}>İptal</button>
             </form>
           </div>
         </div>
       )}
-      
-      {/* Silme Onay Modal'ı */}
+
       {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-employees-modal-overlay">
+          <div className="admin-employees-modal">
             <h3>Çalışanı Sil</h3>
-            <p>Emin misiniz?</p>
-            <button onClick={handleDeleteEmployee}>Evet</button>
-            <button onClick={() => { setShowDeleteModal(false); setDeleteEmployeeId(null); }}>Hayır</button>
+            <p>Bu çalışanı silmek istediğinize emin misiniz?</p>
+            <div className="modal-buttons">
+              <button className="btn-update" onClick={handleDeleteEmployee}>Evet</button>
+              <button className="btn-cancel" onClick={() => setShowDeleteModal(false)}>Hayır</button>
+            </div>
           </div>
         </div>
       )}

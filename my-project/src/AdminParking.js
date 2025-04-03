@@ -6,22 +6,12 @@ function AdminParking() {
   const [parkingList, setParkingList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  // Yeni otopark alanı ekleme formu state'i
-  const [newParking, setNewParking] = useState({
-    yer_ad: '',
-    yer_durum: 'bos',
-  });
-
-  // Güncelleme için seçili otopark alanı
+  const [newParking, setNewParking] = useState({ yer_ad: '', yer_durum: 'bos' });
   const [selectedParking, setSelectedParking] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-
-  // Silme için state
   const [deleteParkingId, setDeleteParkingId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // Backend'den otopark verilerini çek
   const fetchParkingList = async () => {
     try {
       const res = await fetch('/api/otoparklar');
@@ -38,7 +28,6 @@ function AdminParking() {
     fetchParkingList();
   }, []);
 
-  // Yeni otopark alanı ekleme
   const handleAddParking = async (e) => {
     e.preventDefault();
     try {
@@ -59,13 +48,11 @@ function AdminParking() {
     }
   };
 
-  // Güncelleme modalını aç
   const openUpdateModal = (parking) => {
     setSelectedParking(parking);
     setShowUpdateModal(true);
   };
 
-  // Güncelleme işlemi
   const handleUpdateParking = async (e) => {
     e.preventDefault();
     try {
@@ -87,13 +74,11 @@ function AdminParking() {
     }
   };
 
-  // Silme modalını aç
   const openDeleteModal = (id) => {
     setDeleteParkingId(id);
     setShowDeleteModal(true);
   };
 
-  // Silme işlemi
   const handleDeleteParking = async () => {
     try {
       const res = await fetch(`/api/otoparklar/${deleteParkingId}`, {
@@ -113,43 +98,31 @@ function AdminParking() {
   };
 
   if (loading) return <div>Yükleniyor...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (error) return <div className="admin-parking-error">{error}</div>;
 
   return (
     <div className="admin-parking-container">
       <h2>Otopark Alanları Yönetimi</h2>
-      
-      {/* Yeni Otopark Alanı Ekleme Formu */}
-      <form className="add-parking-form" onSubmit={handleAddParking}>
-        <h3>Yeni Otopark Alanı Ekle</h3>
-        <div>
-          <label>Alan Adı:</label>
-          <input
-            type="text"
-            value={newParking.yer_ad}
-            onChange={(e) =>
-              setNewParking({ ...newParking, yer_ad: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label>Durum:</label>
-          <select
-            value={newParking.yer_durum}
-            onChange={(e) =>
-              setNewParking({ ...newParking, yer_durum: e.target.value })
-            }
-          >
-            <option value="bos">Boş</option>
-            <option value="dolu">Dolu</option>
-          </select>
-        </div>
+
+      <form className="admin-parking-form" onSubmit={handleAddParking}>
+        <input
+          type="text"
+          value={newParking.yer_ad}
+          onChange={(e) => setNewParking({ ...newParking, yer_ad: e.target.value })}
+          placeholder="Alan Adı"
+          required
+        />
+        <select
+          value={newParking.yer_durum}
+          onChange={(e) => setNewParking({ ...newParking, yer_durum: e.target.value })}
+        >
+          <option value="bos">Boş</option>
+          <option value="dolu">Dolu</option>
+        </select>
         <button type="submit">Ekle</button>
       </form>
-      
-      {/* Otopark Alanları Tablosu */}
-      <table className="parking-table">
+
+      <table className="admin-parking-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -165,79 +138,50 @@ function AdminParking() {
               <td>{parking.yer_ad}</td>
               <td>{parking.yer_durum}</td>
               <td>
-                <button onClick={() => openUpdateModal(parking)}>Güncelle</button>
-                <button onClick={() => openDeleteModal(parking.yer_ID)}>Sil</button>
+                <button className="btn-update" onClick={() => openUpdateModal(parking)}>Güncelle</button>
+                <button className="btn-delete" onClick={() => openDeleteModal(parking.yer_ID)}>Sil</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
-      {/* Güncelleme Modal'ı */}
+
       {showUpdateModal && selectedParking && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-parking-modal-overlay">
+          <div className="admin-parking-modal">
             <h3>Otopark Alanı Güncelle</h3>
             <form onSubmit={handleUpdateParking}>
-              <div>
-                <label>Alan Adı:</label>
-                <input
-                  type="text"
-                  value={selectedParking.yer_ad}
-                  onChange={(e) =>
-                    setSelectedParking({
-                      ...selectedParking,
-                      yer_ad: e.target.value,
-                    })
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label>Durum:</label>
-                <select
-                  value={selectedParking.yer_durum}
-                  onChange={(e) =>
-                    setSelectedParking({
-                      ...selectedParking,
-                      yer_durum: e.target.value,
-                    })
-                  }
-                >
-                  <option value="bos">Boş</option>
-                  <option value="dolu">Dolu</option>
-                </select>
-              </div>
-              <button type="submit">Güncelle</button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowUpdateModal(false);
-                  setSelectedParking(null);
-                }}
+              <input
+                type="text"
+                value={selectedParking.yer_ad}
+                onChange={(e) => setSelectedParking({ ...selectedParking, yer_ad: e.target.value })}
+                required
+              />
+              <select
+                value={selectedParking.yer_durum}
+                onChange={(e) => setSelectedParking({ ...selectedParking, yer_durum: e.target.value })}
               >
-                İptal
-              </button>
+                <option value="bos">Boş</option>
+                <option value="dolu">Dolu</option>
+              </select>
+              <div className="modal-buttons">
+                <button type="submit" className="btn-green">Kaydet</button>
+                <button type="button" className="btn-red" onClick={() => { setShowUpdateModal(false); setSelectedParking(null); }}>İptal</button>
+              </div>
             </form>
           </div>
         </div>
       )}
-      
-      {/* Silme Onay Modal'ı */}
+
       {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-parking-modal-overlay">
+          <div className="admin-parking-modal">
             <h3>Otopark Alanını Sil</h3>
-            <p>Emin misiniz?</p>
-            <button onClick={handleDeleteParking}>Evet</button>
-            <button
-              onClick={() => {
-                setShowDeleteModal(false);
-                setDeleteParkingId(null);
-              }}
-            >
-              Hayır
-            </button>
+            <p>Bu alanı silmek istediğinize emin misiniz?</p>
+            <div className="modal-buttons">
+              <button className="btn-green" onClick={handleDeleteParking}>Evet</button>
+              <button className="btn-red" onClick={() => { setShowDeleteModal(false); setDeleteParkingId(null); }}>Hayır</button>
+            </div>
           </div>
         </div>
       )}

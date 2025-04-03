@@ -1,0 +1,78 @@
+/* src/PersonelEntries.css */
+
+.personel-entries-container {
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    min-height: 100vh;
+  }
+  
+  .personel-entries-container h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .personel-entry-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .personel-entry-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .personel-entry-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .personel-entry-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .personel-entry-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .personel-entry-table th,
+  .personel-entry-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .personel-entry-table th {
+    background-color: #343a40;
+  color: white;
+  }
+  
+  .personel-entry-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .personel-entry-table tr:hover {
+    background-color: #ecf0f1;
+  }
+  
+  .personel-error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  

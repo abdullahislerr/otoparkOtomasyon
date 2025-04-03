@@ -1,88 +1,86 @@
-/* Genel stil ayarları */
-.admin-payments {
-    padding: 30px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7fa;
-    min-height: 100vh;
-  }
-  
-  h2 {
-    color: #333;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
-  }
-  
-  input {
-    padding: 10px 15px;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 20px;
-  }
-  
-  .error {
-    color: #dc3545;
-    margin-top: 10px;
-  }
-  
-  /* Tablo stil ayarları */
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 25px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  th, td {
-    padding: 12px 15px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #343a40;
-    color: #fff;
-  }
-  
-  tr {
-    background-color: #fff;
-    transition: background-color 0.3s;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tr:hover {
-    background-color: #e9ecef;
-  }
-  
-  /* Buton stil ayarları */
-  button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-  }
-  
-  button:active {
-    transform: translateY(1px);
-  }
-  
-/* Pop-up stil ayarları */
-.popup-bg {
+.admin-payments-container {
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+  min-height: 100vh;
+}
+
+.admin-payments-title {
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.admin-payments-search {
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.admin-payments-error {
+  color: #dc3545;
+  margin-top: 10px;
+}
+
+.admin-payments-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 25px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.admin-payments-table th,
+.admin-payments-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.admin-payments-table th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.admin-payments-table tr {
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+.admin-payments-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-payments-table tr:hover {
+  background-color: #e9ecef;
+}
+
+.admin-payments-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.admin-payments-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.admin-payments-button:active {
+  transform: translateY(1px);
+}
+
+/* Pop-up stil */
+.admin-payments-popup-bg {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -93,7 +91,7 @@
   z-index: 1000;
 }
 
-.popup {
+.admin-payments-popup {
   background: #ffffff;
   padding: 20px;
   border-radius: 12px;
@@ -107,21 +105,21 @@
   overflow-y: auto;
 }
 
-.popup h3 {
+.admin-payments-popup h3 {
   margin-top: 0;
   margin-bottom: 15px;
   color: #343a40;
-  text-align: center; /* Başlık ortaya alındı */
+  text-align: center;
 }
 
-.popup ul {
+.admin-payments-popup ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1; /* İçerik yüksekliği uyarlanır */
+  flex-grow: 1;
 }
 
-.popup li {
+.admin-payments-popup li {
   padding: 10px 0;
   border-bottom: 1px solid #ececec;
   color: #495057;
@@ -129,14 +127,14 @@
   justify-content: space-between;
 }
 
-.popup li:last-child {
+.admin-payments-popup li:last-child {
   border-bottom: none;
 }
 
-.popup button {
+.admin-payments-popup button {
   background: #dc3545;
   margin-top: 20px;
-  align-self: center; /* Buton ortaya alındı */
+  align-self: center;
   color: white;
   border: none;
   border-radius: 5px;
@@ -144,22 +142,22 @@
   cursor: pointer;
 }
 
-.popup button:hover {
+.admin-payments-popup button:hover {
   background: #c82333;
 }
 
-/* Responsive tasarım */
+/* Mobil uyumluluk */
 @media (max-width: 768px) {
-  table, th, td {
+  .admin-payments-table, th, td {
     font-size: 14px;
   }
 
-  .popup {
+  .admin-payments-popup {
     padding: 15px;
     max-width: 90%;
   }
 
-  .popup h3 {
+  .admin-payments-popup h3 {
     font-size: 18px;
   }
 }

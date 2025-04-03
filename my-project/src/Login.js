@@ -24,11 +24,18 @@ function Login() {
       });
 
       const data = await response.json();
+     
 
       if (!response.ok) {
         setError(data.error || 'Giriş başarısız');
         return;
       }
+ // Kullanıcı bilgilerini localStorage'a kaydet (özelleştirilmiş)
+localStorage.setItem('user', JSON.stringify({
+  id: data.user.calisan_ID,
+  name: `${data.user.calisan_ad} ${data.user.calisan_soyad}`,
+}));
+
 
       // ✅ Kullanıcı bilgilerini localStorage'a kaydet
       localStorage.setItem('user', JSON.stringify(data.user));

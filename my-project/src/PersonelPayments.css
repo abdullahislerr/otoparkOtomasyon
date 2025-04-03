@@ -1,0 +1,45 @@
+.personel-payments-container {
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    min-height: 100vh;
+  }
+  
+  .personel-payments-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .personel-payments-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .personel-payments-table th,
+  .personel-payments-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .personel-payments-table th {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .personel-payments-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .personel-payments-table tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  .personel-payments-error {
+    color: red;
+    margin-top: 20px;
+  }
+  

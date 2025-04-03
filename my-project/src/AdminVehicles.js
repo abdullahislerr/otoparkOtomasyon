@@ -1,4 +1,3 @@
-// src/AdminVehicles.js
 import React, { useEffect, useState } from 'react';
 import './AdminVehicles.css';
 
@@ -6,21 +5,12 @@ function AdminVehicles() {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  // Yeni araç ekleme form state'i
-  const [newVehicle, setNewVehicle] = useState({
-    arac_plaka: ''
-  });
-
-  // Güncelleme için seçili araç
+  const [newVehicle, setNewVehicle] = useState({ arac_plaka: '' });
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-
-  // Silme işlemi için state
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // API'den araçları çek
   const fetchVehicles = async () => {
     try {
       const res = await fetch('/api/araclar');
@@ -37,7 +27,6 @@ function AdminVehicles() {
     fetchVehicles();
   }, []);
 
-  // Yeni araç ekleme işlemi
   const handleAddVehicle = async (e) => {
     e.preventDefault();
     try {
@@ -58,13 +47,11 @@ function AdminVehicles() {
     }
   };
 
-  // Güncelleme modalını açma
   const openUpdateModal = (vehicle) => {
     setSelectedVehicle(vehicle);
     setShowUpdateModal(true);
   };
 
-  // Güncelleme işlemi
   const handleUpdateVehicle = async (e) => {
     e.preventDefault();
     try {
@@ -86,13 +73,11 @@ function AdminVehicles() {
     }
   };
 
-  // Silme modalını açma
   const openDeleteModal = (id) => {
     setDeleteVehicleId(id);
     setShowDeleteModal(true);
   };
 
-  // Silme işlemi
   const handleDeleteVehicle = async () => {
     try {
       const res = await fetch(`/api/araclar/${deleteVehicleId}`, {
@@ -112,29 +97,24 @@ function AdminVehicles() {
   };
 
   if (loading) return <div>Yükleniyor...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (error) return <div className="admin-vehicles-error">{error}</div>;
 
   return (
     <div className="admin-vehicles-container">
       <h2>Araç Yönetimi</h2>
-      
-      {/* Yeni Araç Ekleme Formu */}
-      <form className="add-vehicle-form" onSubmit={handleAddVehicle}>
-        <h3>Yeni Araç Ekle</h3>
-        <div>
-          <label>Plaka:</label>
-          <input
-            type="text"
-            value={newVehicle.arac_plaka}
-            onChange={(e) => setNewVehicle({ arac_plaka: e.target.value })}
-            required
-          />
-        </div>
+
+      <form className="admin-vehicles-form" onSubmit={handleAddVehicle}>
+        <input
+          type="text"
+          value={newVehicle.arac_plaka}
+          onChange={(e) => setNewVehicle({ arac_plaka: e.target.value })}
+          placeholder="Plaka giriniz"
+          required
+        />
         <button type="submit">Ekle</button>
       </form>
-      
-      {/* Araçlar Tablosu */}
-      <table className="vehicles-table">
+
+      <table className="admin-vehicles-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -143,54 +123,53 @@ function AdminVehicles() {
           </tr>
         </thead>
         <tbody>
-          {vehicles.map((vehicle) => (
+          {vehicles.map(vehicle => (
             <tr key={vehicle.arac_ID}>
               <td>{vehicle.arac_ID}</td>
               <td>{vehicle.arac_plaka}</td>
               <td>
-                <button onClick={() => openUpdateModal(vehicle)}>Güncelle</button>
-                <button onClick={() => openDeleteModal(vehicle.arac_ID)}>Sil</button>
+                <button className="btn-update" onClick={() => openUpdateModal(vehicle)}>Güncelle</button>
+                <button className="btn-delete" onClick={() => openDeleteModal(vehicle.arac_ID)}>Sil</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      
-      {/* Güncelleme Modal'ı */}
+
       {showUpdateModal && selectedVehicle && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-vehicles-modal-overlay">
+          <div className="admin-vehicles-modal">
             <h3>Araç Güncelle</h3>
             <form onSubmit={handleUpdateVehicle}>
-              <div>
-                <label>Plaka:</label>
-                <input
-                  type="text"
-                  value={selectedVehicle.arac_plaka}
-                  onChange={(e) =>
-                    setSelectedVehicle({
-                      ...selectedVehicle,
-                      arac_plaka: e.target.value
-                    })
-                  }
-                  required
-                />
+              <input
+                type="text"
+                value={selectedVehicle.arac_plaka}
+                onChange={(e) =>
+                  setSelectedVehicle({
+                    ...selectedVehicle,
+                    arac_plaka: e.target.value
+                  })
+                }
+                required
+              />
+              <div className="modal-buttons">
+                <button type="submit" className="btn-green">Kaydet</button>
+                <button type="button" className="btn-red" onClick={() => { setShowUpdateModal(false); setSelectedVehicle(null); }}>İptal</button>
               </div>
-              <button type="submit">Güncelle</button>
-              <button type="button" onClick={() => { setShowUpdateModal(false); setSelectedVehicle(null); }}>İptal</button>
             </form>
           </div>
         </div>
       )}
-      
-      {/* Silme Onay Modal'ı */}
+
       {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="admin-vehicles-modal-overlay">
+          <div className="admin-vehicles-modal">
             <h3>Araç Sil</h3>
-            <p>Emin misiniz?</p>
-            <button onClick={handleDeleteVehicle}>Evet</button>
-            <button onClick={() => { setShowDeleteModal(false); setDeleteVehicleId(null); }}>Hayır</button>
+            <p>Bu aracı silmek istediğinize emin misiniz?</p>
+            <div className="modal-buttons">
+              <button className="btn-green" onClick={handleDeleteVehicle}>Evet</button>
+              <button className="btn-red" onClick={() => { setShowDeleteModal(false); setDeleteVehicleId(null); }}>Hayır</button>
+            </div>
           </div>
         </div>
       )}

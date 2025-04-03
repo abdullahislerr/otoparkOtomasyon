@@ -43,19 +43,20 @@ const AdminPayments = () => {
   );
 
   return (
-    <div className="admin-payments">
-      <h2>Ödeme Kayıtları</h2>
+    <div className="admin-payments-container">
+      <h2 className="admin-payments-title">Ödeme Kayıtları</h2>
       
       <input
         type="text"
+        className="admin-payments-search"
         placeholder="Araç plakasına göre ara..."
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
 
-      {error && <p className="error">{error}</p>}
+      {error && <p className="admin-payments-error">{error}</p>}
 
-      <table>
+      <table className="admin-payments-table">
         <thead>
           <tr>
             <th>Ödeme ID</th>
@@ -70,18 +71,18 @@ const AdminPayments = () => {
               <td>{payment.ucret_ID}</td>
               <td>{payment.arac_plaka}</td>
               <td>{payment.ucret}</td>
-              <td><button onClick={() => handleView(payment.ucret_ID)}>Görüntüle</button></td>
+              <td><button className="admin-payments-button" onClick={() => handleView(payment.ucret_ID)}>Görüntüle</button></td>
             </tr>
           ))}
         </tbody>
       </table>
 
       {/* Pop-up */}
-      {loading && <div className="popup-bg">Yükleniyor...</div>}
+      {loading && <div className="admin-payments-popup-bg">Yükleniyor...</div>}
 
       {selectedPayment && (
-        <div className="popup-bg">
-          <div className="popup">
+        <div className="admin-payments-popup-bg">
+          <div className="admin-payments-popup">
             <h3>Ödeme Detayları</h3>
             <ul>
               <li><strong>Ödeme ID:</strong> {selectedPayment.ucret_ID}</li>

@@ -1,0 +1,208 @@
+/* Personel Dashboard Genel */
+.personel-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.personel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2f855a; /* yeşilimsi ton */
+  color: white;
+  padding: 10px 20px;
+  position: relative;
+  z-index: 100;
+}
+
+.personel-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.personel-info {
+  position: relative;
+}
+
+/* Üstteki buton */
+.personel-user-button {
+  background: transparent;
+  border: none;
+  color: rgb(23, 1, 1);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.personel-user-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Açılır çıkış butonu */
+.personel-logout-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 10px;
+  z-index: 10;
+  min-width: 120px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personel-logout-dropdown button {
+  background-color: #dc3545; /* kırmızı */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.personel-logout-dropdown button:hover {
+  background-color: #c82333;
+}
+
+
+/* İçerik */
+.personel-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.personel-sidebar {
+  background: #e2f2ea;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.personel-sidebar.open {
+  width: 220px;
+}
+
+.personel-sidebar.closed {
+  width: 50px;
+}
+
+/* Sidebar Açma/Kapama Butonu */
+.personel-sidebar .toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Sidebar Navigasyon */
+.personel-sidebar .sidebar-nav {
+  margin-top: 60px;
+}
+
+.personel-sidebar .sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.personel-sidebar .sidebar-nav li {
+  margin: 8px 0;
+}
+
+.personel-sidebar .sidebar-nav button {
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  border-left: 4px solid transparent;
+  transition: all 0.3s;
+}
+
+.personel-sidebar .sidebar-nav li.active button {
+  background-color: #c1e1d0;
+  border-left: 4px solid #0a8754;
+  font-weight: bold;
+}
+
+/* Sayfa İçeriği */
+.personel-main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f7fdfb;
+}
+
+.personel-main h2 {
+  margin-top: 0;
+}
+
+/* Tablolar */
+.personel-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.personel-table th,
+.personel-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.personel-table th {
+  background-color: #0a8754;
+  color: white;
+}
+
+.personel-table tr:nth-child(even) {
+  background-color: #f0f9f6;
+}
+
+.personel-table tr:hover {
+  background-color: #e6f3ee;
+}
+
+/* Butonlar */
+.personel-main button {
+  background-color: #0a8754;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.personel-main button:hover {
+  background-color: #086c43;
+}
+
+/* Hata mesajı */
+.error {
+  color: red;
+  margin-top: 10px;
+}

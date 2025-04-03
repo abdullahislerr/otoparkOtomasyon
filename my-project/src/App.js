@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import AdminDashboard from './AdminDashboard';
 import KullaniciDashboard from './KullaniciDashboard';
+import PersonelDashboard from './PersonelDashboard';
 
 // Route yapılandırması
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/kullanici',
-    element: <KullaniciDashboard />,
+    element: <PersonelDashboard />,
   },
 ]);
 

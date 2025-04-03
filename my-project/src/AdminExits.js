@@ -1,3 +1,4 @@
+//AdminExits.js
 import React, { useState, useEffect } from 'react';
 import './AdminExits.css';
 
@@ -29,7 +30,7 @@ function AdminExits() {
       body: JSON.stringify({
         giris_ID: selectedVehicle.giris_ID,
         odeme_yontemi: paymentMethod,
-        ucret: 10, // Sabit ücret örneği
+        ucret: 10,
       }),
     })
     .then((res) => res.json())
@@ -42,15 +43,16 @@ function AdminExits() {
 
   return (
     <div className="admin-exits-container">
-      <div className="left-panel">
+      <div className="admin-exits-left-panel">
         <h2>Otoparktaki Araçlar</h2>
         <input
           type="text"
+          className="admin-exits-search"
           placeholder="Plaka ara..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <table className="vehicles-table">
+        <table className="admin-exits-vehicles-table">
           <thead>
             <tr>
               <th>Plaka</th>
@@ -65,16 +67,26 @@ function AdminExits() {
                 <td>{v.arac_plaka}</td>
                 <td>{new Date(v.giris_saat).toLocaleString()}</td>
                 <td>{v.yer_ad}</td>
-                <td><button onClick={() => { setSelectedVehicle(v); setPopupOpen(true); }}>Çıkış Yap</button></td>
+                <td>
+                  <button
+                    className="admin-exits-exit-button"
+                    onClick={() => {
+                      setSelectedVehicle(v);
+                      setPopupOpen(true);
+                    }}
+                  >
+                    Çıkış Yap
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="right-panel">
+      <div className="admin-exits-right-panel">
         <h2>Çıkış Yapan Araçlar</h2>
-        <table className="exits-table">
+        <table className="admin-exits-exits-table">
           <thead>
             <tr>
               <th>Plaka</th>
@@ -99,19 +111,23 @@ function AdminExits() {
       </div>
 
       {popupOpen && (
-        <div className="popup">
-          <div className="popup-content">
+        <div className="admin-exits-popup-bg">
+          <div className="admin-exits-popup">
             <h3>Ödeme Yöntemini Seçin</h3>
-            <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+            <select
+              value={paymentMethod}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+              className="admin-exits-select"
+            >
               <option value="kart">Kart</option>
               <option value="nakit">Nakit</option>
             </select>
-            <button onClick={handleExit}>Ödemeyi Tamamla</button>
-            <button onClick={() => setPopupOpen(false)}>İptal</button>
+            <button className="admin-exits-popup-confirm" onClick={handleExit}>Ödemeyi Tamamla</button>
+            <button className="admin-exits-popup-cancel" onClick={() => setPopupOpen(false)}>İptal</button>
           </div>
         </div>
       )}
-      {error && <p className="error">{error}</p>}
+      {error && <p className="admin-exits-error">{error}</p>}
     </div>
   );
 }

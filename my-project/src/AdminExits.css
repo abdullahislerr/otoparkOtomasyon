@@ -1,59 +1,134 @@
 .admin-exits-container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .left-panel, .right-panel {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    border-right: 1px solid #ddd;
-  }
-  
-  .right-panel {
-    border-right: none;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  button {
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-  
-  .popup {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .popup-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.admin-exits-left-panel,
+.admin-exits-right-panel {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.admin-exits-right-panel {
+  border-right: none;
+}
+
+.admin-exits-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.admin-exits-vehicles-table,
+.admin-exits-exits-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-exits-vehicles-table th,
+.admin-exits-exits-table th {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.admin-exits-vehicles-table td,
+.admin-exits-exits-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.admin-exits-vehicles-table tr:nth-child(even),
+.admin-exits-exits-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-exits-exit-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.admin-exits-exit-button:hover {
+  background-color: #c82333;
+}
+
+/* Pop-up */
+.admin-exits-popup-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-exits-popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.admin-exits-popup h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+.admin-exits-select {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.admin-exits-popup-confirm {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.admin-exits-popup-cancel {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.admin-exits-popup-cancel:hover {
+  background-color: #c82333;
+}
+
+.admin-exits-error {
+  color: red;
+  padding-top: 15px;
+}

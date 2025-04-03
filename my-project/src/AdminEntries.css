@@ -1,54 +1,93 @@
-/* src/AdminEntries.css */
 .admin-entries-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fa;
+  min-height: 100vh;
 }
 
-.add-entry-form {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 4px;
+.admin-entries-container h2 {
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.add-entry-form h3 {
-  margin-top: 0;
+.admin-entries-error {
+  color: #dc3545;
+  margin-top: 10px;
 }
 
-.form-row {
-  margin-bottom: 10px;
+/* Giriş formu */
+.admin-entries-form {
+  margin-top: 20px;
   display: flex;
-  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
 }
 
-.form-row label {
-  width: 120px;
-  margin-right: 10px;
-}
-
-.form-row input {
+.admin-entries-form input {
   flex: 1;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.error {
-  color: red;
-  margin-bottom: 10px;
+.admin-entries-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.entries-table {
+.admin-entries-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Tablo */
+.admin-entries-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-.entries-table th,
-.entries-table td {
+.admin-entries-table th {
+  background-color: #343a40;
+  color: #fff;
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.admin-entries-table td {
+  background-color: #fff;
+  padding: 12px 15px;
+  text-align: center;
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
 }
 
-.entries-table th {
-  background-color: #f4f4f4;
+.admin-entries-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-entries-table tr:hover {
+  background-color: #e9ecef;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-entries-form {
+    flex-direction: column;
+  }
+
+  .admin-entries-form input,
+  .admin-entries-form button {
+    width: 100%;
+  }
 }

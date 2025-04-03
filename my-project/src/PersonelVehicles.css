@@ -1,0 +1,69 @@
+.personel-vehicles-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    min-height: 100vh;
+  }
+  
+  .personel-vehicles-container h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .personel-vehicle-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .personel-vehicle-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .personel-vehicle-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .personel-vehicle-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .personel-error {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .personel-vehicle-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .personel-vehicle-table th,
+  .personel-vehicle-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .personel-vehicle-table th {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .personel-vehicle-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
